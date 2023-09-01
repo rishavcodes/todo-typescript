@@ -6,7 +6,7 @@ interface TaskListProps {
   tasks: Task[];
   onTaskStatusChange: (taskId: number) => void;
   onTaskRemove: (taskId: number) => void;
-  onTaskAdd: (task: Task) => void; // Add this prop for adding tasks
+  onTaskAdd: (task: Task) => void; // prop for adding tasks
 }
 
 const TaskList: React.FC<TaskListProps> = ({ tasks, onTaskStatusChange, onTaskRemove, onTaskAdd }) => {

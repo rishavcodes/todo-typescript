@@ -10,18 +10,17 @@ const App: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [error, setError] = useState<string>('');
 
-  // Simulate fetching tasks from an API
+  // fetching tasks from an API
   useEffect(() => {
     setError('');
-    // You can keep this try-catch block to handle errors while fetching tasks if needed
+    // try-catch block to handle errors while fetching tasks if needed
     try {
-      // Simulate an error for demonstration purposes (remove this in a real application)
+      // error for demonstration purposes 
       if (Math.random() < 0.2) {
         throw new Error('An error occurred while fetching tasks.');
       }
 
-      // In a real application, you might fetch tasks from an API here
-      // For now, we'll start with an empty task list
+      // we'll start with an empty task list
       setTasks([]);
     } catch (error) {
       let errorMessage = "Failed to do something exceptional";
