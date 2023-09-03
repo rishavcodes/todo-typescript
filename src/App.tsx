@@ -1,35 +1,38 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router,Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import TaskList from './Components/TaskList';
 import HomePage from './Components/HomePage';
 import AboutPage from './Components/AboutPage';
 import { Task } from './types';
 import './App.css';
+import dummyApi from './api';
 
 const App: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [error, setError] = useState<string>('');
+
 
   // fetching tasks from an API
   useEffect(() => {
     setError('');
     // try-catch block to handle errors while fetching tasks if needed
     try {
-      // error for demonstration purposes 
-      if (Math.random() < 0.2) {
-        throw new Error('An error occurred while fetching tasks.');
-      }
 
-      // we'll start with an empty task list
-      setTasks([]);
-    } catch (error) {
-      let errorMessage = "Failed to do something exceptional";
-      if (error instanceof Error) {
-        errorMessage = error.message;
-      }
-      console.log(errorMessage);
-    }
-  }, []);
+      dummyApi
+      .fetchTasks()
+      .then((data) => {
+        setTasks(data);
+      })
+      
+          // we'll start with an empty task list
+        } catch (error) {
+          let errorMessage = "Failed to do something exceptional";
+          if (error instanceof Error) {
+            errorMessage = error.message;
+          }
+          console.log(errorMessage);
+        }
+    }, []);
 
 
   const handleTaskAdd = (task: Task) => {
@@ -66,18 +69,18 @@ const App: React.FC = () => {
         </nav>
         {error && <div className="error">{error}</div>}
         <Routes>
-        <Route path="/" element={
-          <TaskList
-          tasks={tasks}
-          onTaskStatusChange={handleTaskStatusChange}
-          onTaskRemove={handleTaskRemove}
-          onTaskAdd={handleTaskAdd}
-        />
-        }>
-          
-        </Route>
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/about" element={<AboutPage />} />
+          <Route path="/" element={
+            <TaskList
+              tasks={tasks}
+              onTaskStatusChange={handleTaskStatusChange}
+              onTaskRemove={handleTaskRemove}
+              onTaskAdd={handleTaskAdd}
+            />
+          }>
+
+          </Route>
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
         </Routes>
       </div>
     </Router>
